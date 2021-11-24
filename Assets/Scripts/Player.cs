@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private ObjectBase mOb;
+    public ObjectBase mOb;
+  
     // Start is called before the first frame update
     void Start()
     {
         mOb = new ObjectBase();
         mOb.animator = GetComponent<Animator>();
+      
         mOb.speed = 10.0f;
     }
 
     public void Move()
     {
+        if (mOb.outmingame ==true)
+        {
+            return;
+        }
         mOb.vector = Vector3.zero;
         
             if (Input.GetAxisRaw("Horizontal") != 0)
@@ -38,13 +44,26 @@ public class Player : MonoBehaviour
         transform.position += mOb.vector * mOb.speed * Time.deltaTime;
     }
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
     private void FixedUpdate()
     {
-        Move();
+        try
+        {
+            Move();
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log(e);
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag =="Potal1"|| (collision.gameObject.tag == "MainPotal"))
+        {
+            mOb.targettransform = collision.gameObject.GetComponent<Transform>();
+            transform.position = mOb.targettransform.position;
+        }
+       
     }
 
 }
