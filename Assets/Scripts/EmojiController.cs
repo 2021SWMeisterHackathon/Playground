@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class EmojiController : MonoBehaviour
 {
+    private EmojiController()
+    {
+
+    }
+
     float second;
     void Start()
     {

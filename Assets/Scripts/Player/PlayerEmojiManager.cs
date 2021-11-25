@@ -30,8 +30,8 @@ public class PlayerEmojiManager : MonoBehaviour
         playerEmojis.Add((int)Emojis.defaultSmileEmo, defaultSmileEmo);
         playerEmojis.Add((int)Emojis.defaultVerySmileEmo, defaultVerySmileEmo);
 
-        Debug.LogFormat("Default Setting Complete");
 
+        Debug.LogFormat("Default Setting Complete");
         foreach(KeyValuePair<int, Sprite> var in playerEmojis)
         {
             Debug.LogFormat(var.Key + var.Value.name);
@@ -40,7 +40,8 @@ public class PlayerEmojiManager : MonoBehaviour
 
     public void AddNewCustomEmo(Sprite spr)
     {
-        playerEmojis.Add(playerEmojis.Count + 1, spr);
+        playerEmojis.Add(playerEmojis.Count, spr);
+
 
         Debug.LogFormat("New uploaded" , playerEmojis);
         foreach (KeyValuePair<int, Sprite> var in playerEmojis)
