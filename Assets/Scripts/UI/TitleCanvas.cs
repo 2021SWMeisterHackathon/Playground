@@ -40,21 +40,39 @@ namespace UI
             if (_isLoggedIn)
             {
                 // 대충 시작하는 스크립트
+                Debug.Log("Lobby로 이동");
             }
             else
             {
+                Debug.Log("로그인 시도");
                 // 로그인 하는 스크립트
                 if (_savedUserInfo != null)
                 {
-                    TempLogin(_savedUserInfo.Username,_savedUserInfo.Password);  // **원래 저장한 값으로 로그인함
+                    var isSuccess = TempLogin(_savedUserInfo.Username,_savedUserInfo.Password);  // **원래 저장한 값으로 로그인함
+                    Debug.Log("자동 로그인");
+                    
+                    if (isSuccess == 0)  // 임시 : 성공했을때
+                    {
+                        // 대충 시작하는 스크립트
+                        _isLoggedIn = true;
+                        Debug.Log("로그인 성공");
+                        loginPanel.SetActive(false);
+                        Debug.Log("환영합니다 oo님");
+                    }
+                    else
+                    {
+                        // 대충 에러 메세지 보내는 스크립트
+                        // loginLogText.gameObject.SetActive(true);
+                        // loginLogText.text = "";  -> switch 사용
+                    }
                 }
                 else
                 {
                     InitLoginPanel();
                     loginPanel.SetActive(true);
+                    Debug.Log("로그인 UI 킴");
+
                 }
-                
-                // **로그인하고 나서 뜨는 ui
             }
         }
         
@@ -81,9 +99,15 @@ namespace UI
             if (isSuccess == 0)  // 임시 : 성공했을때
             {
                 // 대충 시작하는 스크립트
+                _isLoggedIn = true;
+                Debug.Log("로그인 성공");
+                loginPanel.SetActive(false);
+                Debug.Log("환영합니다 oo님");
+
                 if (loginSaveAccountToggle.isOn)
                 {
                     _savedUserInfo = new UserInfo(loginUsernameInputField.text, loginPasswordInputField.text);
+                    Debug.Log("로그인 저장");
                 }
             }
             else
@@ -105,6 +129,7 @@ namespace UI
                 
                 InitLoginPanel();
                 loginPanel.SetActive(true);
+                Debug.Log("계정 생성 성공");
             }
             else
             {
@@ -118,7 +143,7 @@ namespace UI
         {
             loginPanel.SetActive(false);
                 
-            InitLoginPanel();
+            InitSignupPanel();
             signupPanel.SetActive(true);
         }
 
