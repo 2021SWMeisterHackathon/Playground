@@ -27,6 +27,7 @@ namespace UI
         private UserInfo _savedUserInfo = null;
         public UserLogin userlogin;
         public List<UserSingUp> usersingup=new List<UserSingUp>();
+        [SerializeField]
         private bool check;
 
         [Header("Login UI")]
@@ -118,6 +119,7 @@ namespace UI
                     _savedUserInfo = new UserInfo(loginUsernameInputField.text, loginPasswordInputField.text);
                     Debug.Log("로그인 저장");
                 }
+                SceneManagerEx.Instance.LoadScene(SceneType.Title);
             }
             else
             {
@@ -161,7 +163,7 @@ namespace UI
         {
           
             StartCoroutine(Login(uname, pw));
-            if (tocken== "fnosnvoqovpnz.fvajobgbvjlf.cnabanwomml")
+            if (check)
             {
                 return 0;
             }
@@ -234,13 +236,19 @@ namespace UI
             yield return www.SendWebRequest();
             if (www.isNetworkError || www.isHttpError)
             {
-
+                check = false;
                 Debug.Log(www.error);
      
                 
             }
             else
             {
+                check = true;
+                JObject json = JObject.Parse(www.downloadHandler.text);
+                UserInformation.Instance.GetNickname(json["nickname"].ToObject<string>());
+                UserInformation.Instance.GetUser(uname);
+                UserInformation.Instance.GetPassword(pw);
+                UserInformation.Instance.GetGold(json["gold"].ToObject<int>());
                 Debug.Log("Form upload complete!");
             }
             StopAllCoroutines();
