@@ -1,23 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Photon.Pun;
 
 public class Player : MonoBehaviour
 {
     public ObjectBase mOb;
+    private PhotonView _photonView;
   
     // Start is called before the first frame update
     void Start()
     {
+        _photonView = GetComponent<PhotonView>();
         mOb = new ObjectBase();
         mOb.animator = GetComponent<Animator>();
-      
+
         mOb.speed = 10.0f;
     }
 
     public void Move()
     {
+        if (!_photonView.IsMine) return; 
         if (mOb.outmingame ==true)
         {
             return;
