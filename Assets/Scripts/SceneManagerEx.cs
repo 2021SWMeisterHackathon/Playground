@@ -2,7 +2,9 @@ using UnityEngine.SceneManagement;
 
 public enum SceneType
 {
-    
+    Title,
+    Lobby,
+    RoomMap,
 }
 
 public class SceneManagerEx : Singleton<SceneManagerEx>
