@@ -1,10 +1,16 @@
-﻿using UnityEngine;
+﻿using LitJson;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
+using Newtonsoft.Json.Linq;
 
 namespace UI
 {
     public class TitleCanvas : MonoBehaviour
     {
+        
         private class UserInfo
         {
             public string Username;
@@ -19,6 +25,10 @@ namespace UI
 
         private bool _isLoggedIn = false;
         private UserInfo _savedUserInfo = null;
+        public UserLogin userlogin;
+        public List<UserSingUp> usersingup=new List<UserSingUp>();
+        [SerializeField]
+        private bool check;
 
         [Header("Login UI")]
         [SerializeField] private GameObject loginPanel;
@@ -109,6 +119,7 @@ namespace UI
                     _savedUserInfo = new UserInfo(loginUsernameInputField.text, loginPasswordInputField.text);
                     Debug.Log("로그인 저장");
                 }
+                SceneManagerEx.Instance.LoadScene(SceneType.Lobby);
             }
             else
             {
@@ -150,12 +161,98 @@ namespace UI
         // 이 함수 대신 다른 로그인 함수로 대체해주세요
         private int TempLogin(string uname, string pw)
         {
-            return 0;  // 로그인 response (다른 자료형이어도 됩니다.)
+          
+            StartCoroutine(Login(uname, pw));
+            if (check)
+            {
+                return 0;
+            }
+            return 1;// 로그인 response (다른 자료형이어도 됩니다.)
         }
 
         private int TempSignUp(string uname, string pw, string nick)
         {
-            return 0;
+            StartCoroutine(SingUp(uname, pw, nick));
+            if (check)
+            {
+                return 0;
+            }
+            return 1;
+        }
+        string urs = "http://118.67.143.241:8000";
+        IEnumerator Login(string uname, string pw)
+        {
+          
+            WWWForm form = new WWWForm();
+            form.AddField("username", uname);
+            form.AddField("password", pw);
+           
+           
+            UnityWebRequest www = UnityWebRequest.Post(""+urs+"/auth", form);
+            Debug.Log(www);
+            Debug.Log(www.ToString());
+            
+            yield return www.SendWebRequest();
+            if (www.isNetworkError || www.isHttpError)
+            {
+                
+                Debug.Log(www.error);
+                check = false;
+            }
+            else
+            {
+                check = true;
+               
+                JObject json = JObject.Parse(www.downloadHandler.text);
+                UserInformation.Instance.GetNickname(json["nickname"].ToObject<string>());
+                UserInformation.Instance.GetUser(uname);
+                UserInformation.Instance.GetPassword(pw);
+                UserInformation.Instance.GetGold(json["gold"].ToObject<int>());
+
+                Debug.Log("Form upload complete!");
+            }
+
+        }
+        string tocken = null;
+        IEnumerator SingUp(string uname, string pw,string nickname)
+        {
+            usersingup.Add(new UserSingUp(uname, pw,nickname));
+            Debug.Log(usersingup[0]);
+            Debug.Log(usersingup[0].username);
+            Debug.Log(usersingup[0].password);
+            Debug.Log(usersingup[0].nickname);
+            WWWForm form = new WWWForm();
+            form.AddField("username",uname);
+            form.AddField("password", pw);
+            form.AddField("nickname", nickname);
+            
+
+            JsonData data = JsonMapper.ToJson(usersingup[0]);
+            Debug.Log(data.ToJson().GetType());
+            UnityWebRequest www = UnityWebRequest.Post("http://118.67.143.241:8000/create", form);
+            Debug.Log(UnityWebRequest.Post("http://118.67.143.241:8000/create", form));
+            Debug.Log("json"+data.ToJson());
+            Debug.Log("string" + data.ToString());
+            yield return www.SendWebRequest();
+            if (www.isNetworkError || www.isHttpError)
+            {
+                check = false;
+                Debug.Log(www.error);
+     
+                
+            }
+            else
+            {
+                check = true;
+                JObject json = JObject.Parse(www.downloadHandler.text);
+                UserInformation.Instance.GetNickname(json["nickname"].ToObject<string>());
+                UserInformation.Instance.GetUser(uname);
+                UserInformation.Instance.GetPassword(pw);
+                UserInformation.Instance.GetGold(json["gold"].ToObject<int>());
+                Debug.Log("Form upload complete!");
+            }
+            StopAllCoroutines();
+
         }
     }
 }
