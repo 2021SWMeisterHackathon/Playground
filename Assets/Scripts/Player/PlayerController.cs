@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
 
     public void InputEmoji(int index)
     {
-        GetComponent<PlayerEmojiManager>().playerEmojis.TryGetValue(index - 1, out spriteVar);
+        GameObject.Find("EmojiManager").GetComponent<EmojiManager>().playerEmojis.TryGetValue(index - 1, out spriteVar);
 
         switch (index)
         {
