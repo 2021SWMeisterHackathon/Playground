@@ -45,6 +45,21 @@ public class UserLogin
         
     }
 }
+public class GameReasult
+{
+    public string username;
+    public string gameName;
+    public int score;
+    public int rank;
+    public GameReasult(string _username,string _gamename,int _score,int _rank)
+    {
+        username = _username;
+        gameName = _gamename;
+        score = _score;
+        rank = _rank;
+    }
+    
+}
 public  class UserInformation : Singleton<UserInformation>
 {
     [SerializeField]
@@ -62,6 +77,22 @@ public  class UserInformation : Singleton<UserInformation>
 
    
 
+    public string SetUser()
+    {
+        return username;
+    }
+    public string SetPassword()
+    {
+        return password;
+    }
+    public string SetNickName()
+    {
+        return nickname;
+    }
+    public int SetGold()
+    {
+        return gold;
+    }
     public void GetUser(string _username)
     {
         username = _username;

@@ -119,7 +119,7 @@ namespace UI
                     _savedUserInfo = new UserInfo(loginUsernameInputField.text, loginPasswordInputField.text);
                     Debug.Log("로그인 저장");
                 }
-                SceneManagerEx.Instance.LoadScene(SceneType.Lobby);
+                SceneManagerEx.Instance.LoadScene(SceneType.RoomMap);
             }
             else
             {
@@ -210,7 +210,9 @@ namespace UI
                 UserInformation.Instance.GetGold(json["gold"].ToObject<int>());
 
                 Debug.Log("Form upload complete!");
+
             }
+            StopAllCoroutines();
 
         }
         string tocken = null;

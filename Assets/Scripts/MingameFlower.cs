@@ -1,8 +1,11 @@
-using Newtonsoft.Json.Linq;
+using LitJson;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
+using Newtonsoft.Json.Linq;
+
 
 public class MingameFlower : MonoBehaviour
 {
@@ -11,6 +14,7 @@ public class MingameFlower : MonoBehaviour
     public GameObject image;
     public int counts=0;
     public bool gmaestart = false;
+    public int rank = 1;
     public void AttackMode()
     {
       for(int i = 0; i < playerlist.Count; i++)
@@ -62,12 +66,16 @@ public class MingameFlower : MonoBehaviour
     }
     public void StartGame()
     {
+       
         score = 10000;
         CheckPlayer();
         mOb.animator.SetBool("Start", true);
         gmaestart = true;
     }
-    
+    private void Awake()
+    {
+        Caching.ClearCache();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -92,20 +100,31 @@ public class MingameFlower : MonoBehaviour
         }
     }
 
-    IEnumerator EndMiniGame( int score)
+   public GameReasult result;
+     IEnumerator EndMiniGame()
     {
-
+        string gamename = "무궁화 꽃이 피었습니다";
         WWWForm form = new WWWForm();
-        form.AddField("game_name", "����ȭ");
-        form.AddField("score", score);
+        result = new GameReasult("lotte12", "무궁화 꽃이 피었습니다", 0, 1);
+        JsonData data = JsonMapper.ToJson(result);
+
+        form.AddField("username", "lotte12");
+        form.AddField("gameName", "무궁화 꽃이 피었습니다");
+        form.AddField("score", 0);
         score -= 3000;
+        form.AddField("rank", 1);
+        rank++;
 
 
-        UnityWebRequest www = UnityWebRequest.Post("http://118.67.143.241:8080/game/end", form);
-        Debug.Log(www);
+
+        UnityWebRequest www = new UnityWebRequest();
+         www = UnityWebRequest.Post("http://118.67.143.241:8080/game/end",form);
+        Debug.Log(www.downloadHandler.text);
+        Debug.Log("" + data.ToString());
         Debug.Log(www.ToString());
 
         yield return www.SendWebRequest();
+        Debug.Log(www.downloadHandler.text);
         if (www.isNetworkError || www.isHttpError)
         {
 
@@ -122,8 +141,8 @@ public class MingameFlower : MonoBehaviour
 
             Debug.Log("Form upload complete!");
         }
-        
 
+       
     }
    
     public int score=10000;
@@ -131,7 +150,7 @@ public class MingameFlower : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            StartCoroutine(EndMiniGame(score));
+            StartCoroutine(EndMiniGame());
             counts++;
         }
     }

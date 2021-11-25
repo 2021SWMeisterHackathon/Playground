@@ -1,20 +1,28 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 
 public class Player : MonoBehaviour
 {
     public ObjectBase mOb;
-  
+    public CinemachineVirtualCamera cameras;
+   
+
     // Start is called before the first frame update
     void Start()
     {
         mOb = new ObjectBase();
         mOb.animator = GetComponent<Animator>();
-      
+        cameras = FindObjectOfType<CinemachineVirtualCamera>();
+        cameras.Follow=transform;
         mOb.speed = 10.0f;
     }
+
+    
+
 
     public void Move()
     {
