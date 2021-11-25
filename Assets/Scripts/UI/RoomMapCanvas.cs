@@ -41,7 +41,7 @@ namespace UI
 
         public void OnClickExitButton()
         {
-            // 씬 나가기(포톤)
+            PhotonManager.Instance.LeaveRoomMap();
         }
 
         private void OnClickCustomEmoticon()
