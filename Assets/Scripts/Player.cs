@@ -57,14 +57,26 @@ public class Player : MonoBehaviour
             Debug.Log(e);
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag =="Potal1"|| (collision.gameObject.tag == "MainPotal"))
+        if (collision.gameObject.tag == "Potal1" || (collision.gameObject.tag == "MainPotal"))
         {
             mOb.targettransform = collision.gameObject.GetComponent<Transform>();
+            if (collision.gameObject.tag == "Potal1")
+            {
+                FindObjectOfType<MingameFlower>().StartGame();
+            }
             transform.position = mOb.targettransform.position;
         }
-       
+        if (collision.gameObject.tag == "Goalin")
+        {
+            mOb.animator.SetBool("Win", true);
+        }
+    }
+    
+    public void WinEnd()
+    {
+        mOb.animator.SetBool("Win", false);
     }
 
 }

@@ -78,4 +78,8 @@ public  class UserInformation : Singleton<UserInformation>
     {
         gold = _gold;
     }
+    public void AddGold(int _gold)
+    {
+        gold += _gold;
+    }
 }

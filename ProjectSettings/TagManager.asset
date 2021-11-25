@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Potal1
   - MainPotal
+  - Bullet
+  - Goalin
   layers:
   - Default
   - TransparentFX

@@ -119,7 +119,7 @@ namespace UI
                     _savedUserInfo = new UserInfo(loginUsernameInputField.text, loginPasswordInputField.text);
                     Debug.Log("로그인 저장");
                 }
-                SceneManagerEx.Instance.LoadScene(SceneType.Title);
+                SceneManagerEx.Instance.LoadScene(SceneType.Lobby);
             }
             else
             {
