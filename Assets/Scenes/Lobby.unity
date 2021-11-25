@@ -284,7 +284,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!224 &232204313
 RectTransform:
@@ -713,7 +713,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 250399426226462640, guid: 9c7621c569452fd4fadb2569ca8b758b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 320.00003
+      value: 319.99954
       objectReference: {fileID: 0}
     - target: {fileID: 250399427034718709, guid: 9c7621c569452fd4fadb2569ca8b758b, type: 3}
       propertyPath: m_AnchorMax.y
@@ -774,6 +774,10 @@ PrefabInstance:
     - target: {fileID: 250399427414375228, guid: 9c7621c569452fd4fadb2569ca8b758b, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 250399427414375228, guid: 9c7621c569452fd4fadb2569ca8b758b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 250399427696076680, guid: 9c7621c569452fd4fadb2569ca8b758b, type: 3}
       propertyPath: m_AnchorMax.x
