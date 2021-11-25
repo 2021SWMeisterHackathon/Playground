@@ -17,6 +17,7 @@ namespace UI
         // 룸 참가
         public void OnClickJoinRoomMapButton()
         {
+            // (포톤)
         }
 
         // 창작 이모티콘 만들기
