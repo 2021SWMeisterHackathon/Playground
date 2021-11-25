@@ -48,6 +48,7 @@ namespace UI
             {
                 // 대충 시작하는 스크립트
                 Debug.Log("Lobby로 이동");
+                PhotonManager.Instance.ConnectToPhoton();
             }
             else
             {
@@ -62,8 +63,9 @@ namespace UI
                     {
                         // 대충 시작하는 스크립트
                         _isLoggedIn = true;
-                        Debug.Log("로그인 성공");
                         loginPanel.SetActive(false);
+                        PhotonManager.Instance.ConnectToPhoton();
+                        Debug.Log("로그인 성공");
                         Debug.Log("환영합니다 oo님");
                     }
                     else
@@ -78,7 +80,6 @@ namespace UI
                     InitLoginPanel();
                     loginPanel.SetActive(true);
                     Debug.Log("로그인 UI 킴");
-
                 }
             }
         }
@@ -107,17 +108,16 @@ namespace UI
             {
                 // 대충 시작하는 스크립트
                 _isLoggedIn = true;
-                Debug.Log("로그인 성공");
                 loginPanel.SetActive(false);
+                Debug.Log("로그인 성공");
                 Debug.Log("환영합니다 oo님");
+                PhotonManager.Instance.ConnectToPhoton();
 
                 if (loginSaveAccountToggle.isOn)
                 {
                     _savedUserInfo = new UserInfo(loginUsernameInputField.text, loginPasswordInputField.text);
                     Debug.Log("로그인 저장");
-                }
-
-                SceneManagerEx.Instance.LoadScene(SceneType.Lobby);
+                } 
             }
             else
             {
