@@ -13,15 +13,17 @@ public enum SFXType
 
 public class AudioManager : Singleton<AudioManager>
 {
+    [Header("BGM")]
+    [SerializeField] private BGMType currentBGMClip = BGMType.None;
     [SerializeField] private AudioSource bgmSource;
     [SerializeField] private AudioClip[] bgmClips;
-    [SerializeField] private BGMType currentBGMClip = BGMType.None;
     public float BGMVolume
     {
         get => bgmSource.volume;
         set => bgmSource.volume = value;
     }
 
+    [Header("SFX")]
     [SerializeField] private AudioSource sfxSource;
     [SerializeField] private AudioClip[] sfxClips;
     public float SFXVolume
