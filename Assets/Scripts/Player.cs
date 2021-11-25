@@ -7,15 +7,19 @@ public class Player : MonoBehaviour
 {
     public ObjectBase mOb;
     private PhotonView _photonView;
-  
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
         _photonView = GetComponent<PhotonView>();
         mOb = new ObjectBase();
         mOb.animator = GetComponent<Animator>();
 
         mOb.speed = 10.0f;
+
+        if (_photonView.IsMine)
+        {
+            MyPlayerObject.Instance.myPlayer = this;
+        }
     }
 
     public void Move()

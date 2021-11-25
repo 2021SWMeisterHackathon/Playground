@@ -22,6 +22,6 @@ public class PlayerSpawner : MonoBehaviour
         var spawnPosition = new Vector2(Random.Range(spawnArea.MinX, spawnArea.MaxX),
             Random.Range(spawnArea.MinY, spawnArea.MaxY));
 
-        PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
+        PhotonNetwork.Instantiate($"Prefabs/{playerPrefab.name}", spawnPosition, Quaternion.identity);
     }
 }

@@ -34,14 +34,14 @@ public class PhotonManager : PunCallbacksSingleton<PhotonManager>
 
     public override void OnJoinedLobby()
     {
+        Debug.Log("포톤 서버 입장 성공");
         SceneManagerEx.Instance.LoadScene(SceneType.Lobby);
-        // Do Something
     }
 
     public override void OnJoinedRoom()
     {
         PhotonNetwork.LoadLevel((int) SceneType.RoomMap);
-        // Do Something
+        Debug.Log("룸 맵 입장 성공");
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message) => Debug.LogError("방만들기실패");
@@ -51,6 +51,7 @@ public class PhotonManager : PunCallbacksSingleton<PhotonManager>
     public override void OnLeftRoom()
     {
         SceneManagerEx.Instance.LoadScene(SceneType.Lobby);
+        Debug.Log("룸 맵 퇴장");
         // Do Something
     }
 

@@ -156,6 +156,14 @@ namespace UI
             signupPanel.SetActive(true);
         }
 
+        public void OnClickLoginPanelButton()
+        {
+            signupPanel.SetActive(false);
+
+            InitLoginPanel();
+            loginPanel.SetActive(true);
+        }
+
         // 이 함수 대신 다른 로그인 함수로 대체해주세요
         private int Login(string uname, string pw)
         {

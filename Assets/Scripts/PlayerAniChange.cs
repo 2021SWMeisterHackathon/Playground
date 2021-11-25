@@ -10,12 +10,12 @@ public class PlayerAniChange : MonoBehaviour
     {
         avatarnumber = clicknumber;
     }
-    public void ChangeAvatar(Player player)
+    public void ChangeAvatar()
     {
         Debug.Log(avatarnumber);
        
        
-        player.mOb.animator.runtimeAnimatorController= Resources.Load("Ani/Avatar" + avatarnumber) as RuntimeAnimatorController;
+        MyPlayerObject.Instance.myPlayer.mOb.animator.runtimeAnimatorController= Resources.Load("Ani/Avatar" + avatarnumber) as RuntimeAnimatorController;
 
         Debug.Log(Resources.Load("Ani/Avatar" + avatarnumber));
     }
