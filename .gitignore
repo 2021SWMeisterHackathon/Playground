@@ -3,17 +3,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=unity,firebase
 
 ### Custom ###
-/[Aa]ssets/Editor Default Resources
-/[Aa]ssets/ExternalDependencyManager
-/[Aa]ssets/Firebase
-/[Aa]ssets/GooglePlayGames
-/[Aa]ssets/Parse
-/[Aa]ssets/Plugins
-/[Aa]ssets/Photon
-/[Aa]ssets/StreamingAssets
-/[Aa]ssets/google-services.json
-/[Aa]ssets/GPGSIds.cs
-/[Aa]ssets/.vsconfig
+
 
 ### Firebase ###
 .idea
