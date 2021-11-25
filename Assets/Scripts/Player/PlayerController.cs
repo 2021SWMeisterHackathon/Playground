@@ -16,16 +16,16 @@ public class PlayerController : MonoBehaviour
     public GameObject VerySmileEmoji;
     #endregion
 
-    private GameObject var; //Instantiate된 인스턴스를 컨트롤하기 위함
+    private GameObject var; //Instantiate() 된 인스턴스를 컨트롤하기 위함
 
     void Start()
     {
         EmojiInputPanel.SetActive(false);
 
-        speed = 0.15f;
+        speed = 0.09f;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         x = Input.GetAxisRaw("Horizontal") * speed;
@@ -69,13 +69,13 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("OpenCustomEmojiPanel");
         CustomEmojiInputPanel.SetActive(true);
-}
+    }
 
     public void InputEmoji(int index)
     {
         Debug.Log("UseEmoji");
 
-        switch(index)
+        switch (index)
         {
             case 1:
                 InstantiateEmoji(JustEmoji); break;
